@@ -7,4 +7,6 @@ module com.jwebmp.plugins.fullcalendarpro {
 	
 	provides IPageConfigurator with FullCalendarProPageConfigurator;
 	
+	opens com.jwebmp.plugins.fullcalendarpro to com.google.guice;
+	
 }
