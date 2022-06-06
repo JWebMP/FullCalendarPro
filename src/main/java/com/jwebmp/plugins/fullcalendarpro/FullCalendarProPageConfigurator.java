@@ -17,9 +17,8 @@
 package com.jwebmp.plugins.fullcalendarpro;
 
 import com.jwebmp.core.Page;
-import com.jwebmp.core.base.angular.services.annotations.*;
-import com.jwebmp.core.base.angular.services.annotations.references.*;
-import com.jwebmp.core.base.angular.services.annotations.structures.*;
+import com.jwebmp.core.base.angular.client.annotations.boot.*;
+import com.jwebmp.core.base.angular.client.annotations.typescript.*;
 import com.jwebmp.core.plugins.*;
 import com.jwebmp.core.services.IPageConfigurator;
 import jakarta.validation.constraints.NotNull;

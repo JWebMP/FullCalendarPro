@@ -3,16 +3,14 @@ package com.jwebmp.plugins.fullcalendarpro;
 import com.guicedee.guicedinjection.*;
 import com.guicedee.guicedservlets.websockets.*;
 import com.jwebmp.core.base.ajax.*;
+import com.jwebmp.core.base.angular.client.annotations.functions.*;
 import com.jwebmp.core.base.angular.implementations.*;
-import com.jwebmp.core.base.angular.services.annotations.functions.*;
 import com.jwebmp.plugins.fullcalendar.*;
 import com.jwebmp.plugins.fullcalendar.options.resources.*;
 
 import java.util.*;
 
-@NgOnDestroy(onDestroy = {
-		"this.subscriptionResources?.unsubscribe();",
-})
+@NgOnDestroy("this.subscriptionResources?.unsubscribe();")
 public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends FullCalendar<J>
 {
 	
