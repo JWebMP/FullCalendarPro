@@ -6,7 +6,7 @@ module com.jwebmp.plugins.fullcalendarpro {
 	requires com.guicedee.guicedservlets.websockets;
 	
 	provides IPageConfigurator with FullCalendarProPageConfigurator;
-	
+
 	opens com.jwebmp.plugins.fullcalendarpro to com.google.guice;
 	
 }

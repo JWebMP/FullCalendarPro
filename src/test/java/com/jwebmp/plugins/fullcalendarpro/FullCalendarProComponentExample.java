@@ -1,7 +1,6 @@
 package com.jwebmp.plugins.fullcalendarpro;
 
-import com.jwebmp.core.base.angular.services.annotations.*;
-import com.jwebmp.plugins.fullcalendar.*;
+import com.jwebmp.core.base.angular.client.annotations.angular.*;
 import com.jwebmp.plugins.fullcalendar.options.*;
 import com.jwebmp.plugins.fullcalendar.options.resources.*;
 
