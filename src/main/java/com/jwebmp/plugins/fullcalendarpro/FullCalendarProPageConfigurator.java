@@ -50,10 +50,13 @@ import jakarta.validation.constraints.NotNull;
                    pluginModuleName = "com.jwebmp.plugins.fullcalendarpro",
                    pluginStatus = PluginStatus.Released
 )
-@TsDependency(value = "@fullcalendar/resource-timegrid", version = "^5.11.0")
-@TsDependency(value = "@fullcalendar/resource-timeline", version = "^5.11.0")
-@TsDependency(value = "@fullcalendar/adaptive", version = "^5.11.0")
-@TsDependency(value = "@fullcalendar/resource-daygrid", version = "^5.11.0")
+
+@TsDependency(value = "@fullcalendar/resource-timegrid", version = "^5.11.2")
+@TsDependency(value = "@fullcalendar/resource-timeline", version = "^5.11.2")
+@TsDependency(value = "@fullcalendar/adaptive", version = "^5.11.2")
+@TsDependency(value = "@fullcalendar/resource-daygrid", version = "^5.11.2")
+
+
 
 @NgBootImportReference(name = "!resourceDayGridPlugin", reference = "@fullcalendar/resource-daygrid")
 @NgBootImportReference(name = "!resourceTimeGridPlugin", reference = "@fullcalendar/resource-timegrid")
