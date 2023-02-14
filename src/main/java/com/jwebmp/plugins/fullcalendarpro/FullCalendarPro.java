@@ -57,20 +57,15 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
 		        "            if(workabe)\n" +
 		        "            {\n" +
 		        "                try {\n" +
-		        "                    if (this.calendarApi)\n" +
-		        "                        for (const rs of this.calendarApi.getResources()) {\n" +
-		        "                            this.calendarApi.getResourceById(rs.id)?.remove();\n" +
-		        "                        }\n" +
+		  //      "                    if (this.calendarApi)\n" +
+		   //     "                        for (const rs of this.calendarApi.getResources()) {\n" +
+		    //    "                            this.calendarApi.getResourceById(rs.id)?.remove();\n" +
+		    //    "                        }\n" +
 		        "                    for (const resource of message) {\n" +
 		        "                      //  alert('adding resource -' + JSON.stringify(resource));\n" +
 		        "                        this.calendarApi?.addResource(resource);\n" +
 		        "                    }\n" +
-		        "                    setTimeout(() => {\n" +
-		        "                        this.calendarApi?.updateSize();\n" +
-		        "                    }, 200);\n" +
-		        "                    setTimeout(() => {\n" +
-		        "                        this.calendarApi?.updateSize();\n" +
-		        "                    }, 500);\n" +
+		   //     "                    this.calendarApi?.updateSize();\n" +
 		        "                } catch (e) {\n" +
 		        "                    console.log(\"error in resources\", e);\n" +
 		        "                }\n" +
