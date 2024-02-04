@@ -2,15 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.guicedee</groupId>
-        <artifactId>dev-kit</artifactId>
-        <version>0.0.0_0-SNAPSHOT</version>
-        <relativePath>../../../../../../</relativePath>
+        <groupId>com.jwebmp</groupId>
+        <artifactId>jwebmp-builder</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+        <relativePath>../../../../</relativePath>
     </parent>
+
     <groupId>com.jwebmp.plugins.jquery</groupId>
     <artifactId>jwebmp-full-calendar-pro</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.0_0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <name>Full Calendar Pro</name>
     <description>The JWebSwing implementation for the Full Calendar Widget</description>
     <url>https://github.com/GedMarc/JWebSwing-Full-Calendar</url>
@@ -34,6 +35,12 @@
         <dependency>
             <groupId>com.jwebmp.plugins.angular</groupId>
             <artifactId>angularts</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

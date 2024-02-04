@@ -2,7 +2,7 @@ package com.jwebmp.plugins.fullcalendarpro;
 
 import com.guicedee.guicedinjection.*;
 import com.guicedee.guicedservlets.undertow.*;
-import com.guicedee.logger.*;
+
 
 import com.jwebmp.core.base.angular.client.annotations.angular.*;
 import com.jwebmp.core.base.angular.client.services.interfaces.*;
@@ -29,12 +29,9 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
 	
 	public static void main(String[] args) throws Exception
 	{
-		LogFactory.configureDefaultLogHiding();
-		LogFactory.configureConsoleColourOutput(Level.FINE);
 		GuicedUndertow.boot("localhost", 6524);
 	}
 	
-	@Test
 	public void testAppSearch() throws IOException
 	{
 		GuiceContext.inject();
