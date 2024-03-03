@@ -3,39 +3,33 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.jwebmp</groupId>
-        <artifactId>jwebmp-builder</artifactId>
+        <artifactId>parent</artifactId>
         <version>2.0.0-SNAPSHOT</version>
-        <relativePath>../../../../</relativePath>
     </parent>
 
-    <groupId>com.jwebmp.plugins.jquery</groupId>
-    <artifactId>jwebmp-full-calendar-pro</artifactId>
+    <groupId>com.jwebmp.plugins</groupId>
+    <artifactId>full-calendar-pro</artifactId>
     <packaging>jar</packaging>
     <version>2.0.0-SNAPSHOT</version>
     <name>Full Calendar Pro</name>
     <description>The JWebSwing implementation for the Full Calendar Widget</description>
-    <url>https://github.com/GedMarc/JWebSwing-Full-Calendar</url>
-
-    <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/GedMarc/JWebSwing-Full-Calendar/issues</url>
-    </issueManagement>
 
     <dependencies>
         <dependency>
             <groupId>com.jwebmp.core</groupId>
             <artifactId>jwebmp-core</artifactId>
         </dependency>
-		
-		 <dependency>
-            <groupId>com.jwebmp.plugins.jquery</groupId>
-			<artifactId>jwebmp-full-calendar</artifactId>
+
+        <dependency>
+            <groupId>com.jwebmp.plugins</groupId>
+            <artifactId>full-calendar</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.plugins.angular</groupId>
-            <artifactId>angularts</artifactId>
+            <groupId>com.jwebmp.plugins</groupId>
+            <artifactId>typescript-client</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -45,18 +39,9 @@
 
     </dependencies>
 
-    <scm>
-        <url>https://github.com/GedMarc?tab=repositories</url>
-    </scm>
-
-    <ciManagement>
-        <system>TeamCity</system>
-        <url>http://jwebmp.com/teamcity</url>
-    </ciManagement>
-
     <properties>
         <ignore.moditect>true</ignore.moditect>
-        <flatten.pom>false</flatten.pom>
+        <project.scm.nameUrl>/JWebMP/Plugins/FullCalendarPro</project.scm.nameUrl>
     </properties>
 
     <dependencyManagement>
@@ -89,106 +74,10 @@
     </dependencyManagement>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <includes>
-                    <include>**/*.js</include>
-                    <include>**/*.json</include>
-                    <include>**/*.css</include>
-                    <include>**/*.min</include>
-                    <include>**/*.html</include>
-                    <include>**/*.htm</include>
-                    <include>**/*.txt</include>
-                    <include>**/*.sql</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.js</include>
-                    <include>**/*.json</include>
-                    <include>**/*.css</include>
-                    <include>**/*.min</include>
-                    <include>**/*.html</include>
-                    <include>**/*.htm</include>
-                    <include>**/*.txt</include>
-                    <include>**/*.sql</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.gzip</exclude>
-                    <exclude>**/*.map</exclude>
-                    <exclude>**/*.md</exclude>
-                    <exclude>**/*.md</exclude>
-                    <exclude>**/package.json</exclude>
-                    <exclude>**/bower.json</exclude>
-                    <exclude>**/.bower.json</exclude>
-                    <exclude>**/.gitignore</exclude>
-                    <exclude>**/.jshint</exclude>
-                    <exclude>**/.jshint</exclude>
-                    <exclude>**/Gruntfile.js</exclude>
-                    <exclude>**/*.sh</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.java</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.txt</include>
-                </includes>
-            </resource><resource>
-                <directory>jar-resources</directory>
-                <targetPath>${project.build.outputDirectory}/META-INF/resources/</targetPath>
-                <excludes>
-                    <exclude>**/*.gzip</exclude>
-                    <exclude>**/*.md</exclude>
-                    <exclude>**/*.md</exclude>
-                    <exclude>**/package.json</exclude>
-                    <exclude>**/bower.json</exclude>
-                    <exclude>**/.bower.json</exclude>
-                    <exclude>**/.gitignore</exclude>
-                    <exclude>**/.jshint</exclude>
-                    <exclude>**/.jshint</exclude>
-                    <exclude>**/Gruntfile.js</exclude>
-                    <exclude>**/*.sh</exclude>
-                </excludes>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-
-                <configuration>
-                    <flattenMode>ossrh</flattenMode>
-                    <flattenDependencyMode>direct</flattenDependencyMode>
-                    <detail>true</detail>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenedPomFilename>flatter.pom</flattenedPomFilename>
-                </configuration>
-                <executions>
-                    <!-- enable flattening -->
-                    <execution>
-                        <id>flatten</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <!-- ensure proper cleanup -->
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
