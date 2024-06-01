@@ -50,10 +50,10 @@ import com.jwebmp.core.services.IPageConfigurator;
                    pluginStatus = PluginStatus.Released
 )
 
-@TsDependency(value = "@fullcalendar/resource-timegrid", version = "^6.1.11")
-@TsDependency(value = "@fullcalendar/resource-timeline", version = "^6.1.11")
-@TsDependency(value = "@fullcalendar/adaptive", version = "^6.1.11")
-@TsDependency(value = "@fullcalendar/resource-daygrid", version = "^6.1.11")
+@TsDependency(value = "@fullcalendar/resource-timegrid", version = "^6.1.13")
+@TsDependency(value = "@fullcalendar/resource-timeline", version = "^6.1.13")
+@TsDependency(value = "@fullcalendar/adaptive", version = "^6.1.13")
+@TsDependency(value = "@fullcalendar/resource-daygrid", version = "^6.1.13")
 
 /*
 
