@@ -1,10 +1,10 @@
 import com.jwebmp.core.services.IPageConfigurator;
-import com.jwebmp.plugins.fullcalendarpro.*;
+import com.jwebmp.plugins.fullcalendarpro.FullCalendarProPageConfigurator;
 
 module com.jwebmp.plugins.fullcalendarpro {
     exports com.jwebmp.plugins.fullcalendarpro;
     requires transitive com.jwebmp.plugins.fullcalendar;
-    requires com.guicedee.guicedservlets.websockets;
+    requires guiced.vertx.sockets;
     requires com.jwebmp.client;
     requires com.jwebmp.core.angular;
 

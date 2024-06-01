@@ -30,6 +30,11 @@
             <artifactId>typescript-client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.guicedee.servlets</groupId>
+            <artifactId>guiced-vertx-sockets</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

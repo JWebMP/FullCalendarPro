@@ -1,20 +1,16 @@
 package com.jwebmp.plugins.fullcalendarpro;
 
-import com.guicedee.guicedinjection.*;
-import com.guicedee.guicedservlets.undertow.*;
+import com.guicedee.guicedinjection.GuiceContext;
+import com.jwebmp.core.base.angular.client.annotations.angular.NgComponent;
+import com.jwebmp.core.base.angular.client.services.interfaces.IComponent;
+import com.jwebmp.core.base.angular.client.services.interfaces.INgApp;
+import com.jwebmp.core.base.angular.client.services.interfaces.INgComponent;
+import com.jwebmp.core.base.angular.services.compiler.JWebMPTypeScriptCompiler;
+import com.jwebmp.core.base.html.DivSimple;
 
+import java.io.IOException;
 
-import com.jwebmp.core.base.angular.client.annotations.angular.*;
-import com.jwebmp.core.base.angular.client.services.interfaces.*;
-import com.jwebmp.core.base.angular.services.compiler.*;
-import com.jwebmp.core.base.angular.services.interfaces.*;
-import com.jwebmp.core.base.html.*;
-import org.junit.jupiter.api.*;
-
-import java.io.*;
-import java.util.logging.*;
-
-import static com.jwebmp.core.base.angular.client.services.interfaces.AnnotationUtils.*;
+import static com.jwebmp.core.base.angular.client.services.interfaces.AnnotationUtils.getTsFilename;
 
 @NgComponent(value = "full-calendar-example")
 public class FullCalendarExample extends DivSimple<FullCalendarExample>
@@ -26,12 +22,7 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
         add(new FullCalendarProComponentExample());
         super.init();
     }
-
-    public static void main(String[] args) throws Exception
-    {
-        GuicedUndertow.boot("localhost", 6524);
-    }
-
+    
     public void testAppSearch() throws IOException
     {
         GuiceContext.instance()
@@ -41,7 +32,7 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
             JWebMPTypeScriptCompiler compiler = new JWebMPTypeScriptCompiler(app);
 
             System.out.println("Generating @NgApp (" + getTsFilename(app.getClass()) + ") " +
-                    "in folder " + IComponent.getClassDirectory(app.getClass()));
+                                       "in folder " + IComponent.getClassDirectory(app.getClass()));
             System.out.println("================");
             //	compiler.renderAppTS(app);
             System.out.println("================");
