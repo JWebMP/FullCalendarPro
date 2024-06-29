@@ -1,5 +1,7 @@
+import com.guicedee.guicedinjection.interfaces.IGuiceScanModuleInclusions;
 import com.jwebmp.core.services.IPageConfigurator;
 import com.jwebmp.plugins.fullcalendarpro.FullCalendarProPageConfigurator;
+import com.jwebmp.plugins.fullcalendarpro.implementations.FullCalendarProModuleScanInclusion;
 
 module com.jwebmp.plugins.fullcalendarpro {
     exports com.jwebmp.plugins.fullcalendarpro;
@@ -9,6 +11,7 @@ module com.jwebmp.plugins.fullcalendarpro {
     requires com.jwebmp.core.angular;
 
     provides IPageConfigurator with FullCalendarProPageConfigurator;
+    provides IGuiceScanModuleInclusions with FullCalendarProModuleScanInclusion;
 
     opens com.jwebmp.plugins.fullcalendarpro to com.google.guice;
 

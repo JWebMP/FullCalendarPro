@@ -2,7 +2,6 @@ package com.jwebmp.plugins.fullcalendarpro;
 
 import com.guicedee.client.IGuiceContext;
 import com.guicedee.guicedservlets.websockets.options.IGuicedWebSocket;
-import com.guicedee.vertx.websockets.GuicedWebSocket;
 import com.jwebmp.core.base.ajax.AjaxCall;
 import com.jwebmp.core.base.ajax.AjaxResponse;
 import com.jwebmp.core.base.angular.client.annotations.functions.NgOnDestroy;
@@ -135,10 +134,9 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     protected void registerWebSocketListeners()
     {
         super.registerWebSocketListeners();
-        GuicedWebSocket socket = (GuicedWebSocket) IGuiceContext.get(IGuicedWebSocket.class);
-        if (!socket.isWebSocketReceiverRegistered(getListenerNameResources()))
+        if (!IGuicedWebSocket.isWebSocketReceiverRegistered(getListenerNameResources()))
         {
-            socket.addWebSocketMessageReceiver(new InitialResourceEventsReceiver(getListenerNameResources(), getClass()));
+            IGuicedWebSocket.addWebSocketMessageReceiver(new InitialResourceEventsReceiver(getListenerNameResources(), getClass()));
         }
     }
 
