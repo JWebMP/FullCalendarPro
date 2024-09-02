@@ -38,9 +38,9 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     public abstract FullCalendarResourceItemsList getInitialResources();
 
     @Override
-    public List<String> componentConstructorBody()
+    public List<String> constructorBody()
     {
-        List<String> out = super.componentConstructorBody();
+        List<String> out = super.constructorBody();
         out.add("this.subscriptionResources = this.socketClientService.registerListener(this.listenerName + 'Resources').subscribe((message: any) => {\n" +
                         "          //  alert('bla - --- ' + JSON.stringify(message));\n" +
                         "            let workabe = false;\n" +
@@ -75,8 +75,9 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     }
 
     @Override
-    public List<String> componentMethods()
+    public List<String> methods()
     {
+        //List<String> methods = super.methods();
         List<String> methods = new ArrayList<>();
         methods.add("fetchData() {\n" +
                             "this.socketClientService.send(this.listenerName + 'Options', {\n" +
@@ -99,7 +100,7 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
                             "                    }, this.listenerName);\n" +
                             "    }"
         );
-
+/*
         methods.add(" ngAfterContentChecked(): void {\n" +
                             "    }\n" +
                             "\n" +
@@ -118,15 +119,15 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
                             "    }\n" +
                             "\n" +
                             "    ngOnInit(): void {\n" +
-                            "    }");
+                            "    }");*/
 
         return methods;
     }
 
     @Override
-    public List<String> componentFields()
+    public List<String> fields()
     {
-        List<String> fields = super.componentFields();
+        List<String> fields = super.fields();
         fields.add(" private subscriptionResources? : Subscription;\n");
         return fields;
     }

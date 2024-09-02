@@ -8,7 +8,9 @@ module com.jwebmp.plugins.fullcalendarpro {
     requires transitive com.jwebmp.plugins.fullcalendar;
     requires guiced.vertx.sockets;
     requires com.jwebmp.client;
+    requires com.jwebmp.core;
     requires com.jwebmp.core.angular;
+    requires com.guicedee.guicedinjection;
 
     provides IPageConfigurator with FullCalendarProPageConfigurator;
     provides IGuiceScanModuleInclusions with FullCalendarProModuleScanInclusion;

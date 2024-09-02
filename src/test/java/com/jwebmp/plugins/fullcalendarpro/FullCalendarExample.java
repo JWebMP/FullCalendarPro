@@ -7,6 +7,7 @@ import com.jwebmp.core.base.angular.client.services.interfaces.INgApp;
 import com.jwebmp.core.base.angular.client.services.interfaces.INgComponent;
 import com.jwebmp.core.base.angular.services.compiler.JWebMPTypeScriptCompiler;
 import com.jwebmp.core.base.html.DivSimple;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -17,12 +18,13 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
         implements INgComponent<FullCalendarExample>
 {
     @Override
-    public void init()
+    protected void init()
     {
         add(new FullCalendarProComponentExample());
         super.init();
     }
-    
+
+    @Test
     public void testAppSearch() throws IOException
     {
         GuiceContext.instance()

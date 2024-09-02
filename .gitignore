@@ -17,3 +17,4 @@ persistence.xml
 *.iml
 /.idea/
 /flatter.pom
+/webroot/
