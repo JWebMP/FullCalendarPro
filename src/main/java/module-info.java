@@ -6,7 +6,7 @@ import com.jwebmp.plugins.fullcalendarpro.implementations.FullCalendarProModuleS
 module com.jwebmp.plugins.fullcalendarpro {
     exports com.jwebmp.plugins.fullcalendarpro;
     requires transitive com.jwebmp.plugins.fullcalendar;
-    requires guiced.vertx.sockets;
+    requires com.guicedee.vertx.sockets;
     requires com.jwebmp.client;
     requires com.jwebmp.core;
     requires com.jwebmp.core.angular;
