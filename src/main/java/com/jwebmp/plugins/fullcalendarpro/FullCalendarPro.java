@@ -41,36 +41,36 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     public List<String> constructorBody()
     {
         List<String> out = super.constructorBody();
-        out.add("this.subscriptionResources = this.socketClientService.registerListener(this.listenerName + 'Resources').subscribe((message: any) => {\n" +
-                        "          //  alert('bla - --- ' + JSON.stringify(message));\n" +
-                        "            let workabe = false;\n" +
-                        "           if(message) " +
-                        "           if (Array.isArray(message)) {\n" +
-                        "                workabe = true;\n" +
-                        "            } else {\n" +
-                        "                if (message.out && message.out[0]) {\n" +
-                        "                    message = message.out[0];\n" +
-                        "                    workabe = true;\n" +
-                        "                }\n" +
-                        "            }\n" +
-                        "\n" +
-                        "            if(workabe)\n" +
-                        "            {\n" +
-                        "                try {\n" +
-                        //      "                    if (this.calendarApi)\n" +
-                        //     "                        for (const rs of this.calendarApi.getResources()) {\n" +
-                        //    "                            this.calendarApi.getResourceById(rs.id)?.remove();\n" +
-                        //    "                        }\n" +
-                        "                    for (const resource of message) {\n" +
-                        "                      //  alert('adding resource -' + JSON.stringify(resource));\n" +
-                        "                        this.calendarApi?.addResource(resource);\n" +
-                        "                    }\n" +
-                        //     "                    this.calendarApi?.updateSize();\n" +
-                        "                } catch (e) {\n" +
-                        "                    console.log(\"error in resources\", e);\n" +
-                        "                }\n" +
-                        "            }\n" +
-                        "        });");
+        out.add("this.subscriptionResources = this.eventBusService.listen(this.listenerName + 'Resources').subscribe((message: any) => {\n" +
+                "          //  alert('bla - --- ' + JSON.stringify(message));\n" +
+                "            let workabe = false;\n" +
+                "           if(message) " +
+                "           if (Array.isArray(message)) {\n" +
+                "                workabe = true;\n" +
+                "            } else {\n" +
+                "                if (message.out && message.out[0]) {\n" +
+                "                    message = message.out[0];\n" +
+                "                    workabe = true;\n" +
+                "                }\n" +
+                "            }\n" +
+                "\n" +
+                "            if(workabe)\n" +
+                "            {\n" +
+                "                try {\n" +
+                //      "                    if (this.calendarApi)\n" +
+                //     "                        for (const rs of this.calendarApi.getResources()) {\n" +
+                //    "                            this.calendarApi.getResourceById(rs.id)?.remove();\n" +
+                //    "                        }\n" +
+                "                    for (const resource of message) {\n" +
+                "                      //  alert('adding resource -' + JSON.stringify(resource));\n" +
+                "                        this.calendarApi?.addResource(resource);\n" +
+                "                    }\n" +
+                //     "                    this.calendarApi?.updateSize();\n" +
+                "                } catch (e) {\n" +
+                "                    console.log(\"error in resources\", e);\n" +
+                "                }\n" +
+                "            }\n" +
+                "        });");
         return out;
     }
 
@@ -80,25 +80,25 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
         //List<String> methods = super.methods();
         List<String> methods = new ArrayList<>();
         methods.add("fetchData() {\n" +
-                            "this.socketClientService.send(this.listenerName + 'Options', {\n" +
-                            "            className: '" + getClass().getCanonicalName() + "',\n" +
-                            "            listenerName: this.listenerName + 'Options'\n" +
-                            "        }, this.listenerName + 'Options');" +
-                            "" +
-                            "" +
-                            "        this.socketClientService.send(this.listenerName + 'Resources', {\n" +
-                            "            className: '" + getClass().getCanonicalName() + "',\n" +
-                            "            listenerName: this.listenerName + 'Resources'\n" +
-                            "        }, this.listenerName + 'Resources');\n" +
+                "this.eventBusService.send(this.listenerName + 'Options', {\n" +
+                "            className: '" + getClass().getCanonicalName() + "',\n" +
+                "            listenerName: this.listenerName + 'Options'\n" +
+                "        }, this.listenerName + 'Options');" +
+                "" +
+                "" +
+                "        this.eventBusService.send(this.listenerName + 'Resources', {\n" +
+                "            className: '" + getClass().getCanonicalName() + "',\n" +
+                "            listenerName: this.listenerName + 'Resources'\n" +
+                "        }, this.listenerName + 'Resources');\n" +
 
-                            "" +
-                            "" +
-                            "                 //   alert('fetching evnts');\n" +
-                            "                    this.socketClientService.send(this.listenerName, {\n" +
-                            "                        className: '" + getClass().getCanonicalName() + "',\n" +
-                            "                        listenerName: this.listenerName\n" +
-                            "                    }, this.listenerName);\n" +
-                            "    }"
+                "" +
+                "" +
+                "                 //   alert('fetching evnts');\n" +
+                "                    this.eventBusService.send(this.listenerName, {\n" +
+                "                        className: '" + getClass().getCanonicalName() + "',\n" +
+                "                        listenerName: this.listenerName\n" +
+                "                    }, this.listenerName);\n" +
+                "    }"
         );
 /*
         methods.add(" ngAfterContentChecked(): void {\n" +
@@ -169,15 +169,14 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
             {
                 actionClass = (Class<? extends FullCalendarPro>) Class.forName(call.getClassName());
                 listenerName = call.getUnknownFields()
-                                   .get("listenerName")
-                                   .toString();
-            }
-            catch (ClassNotFoundException e)
+                        .get("listenerName")
+                        .toString();
+            } catch (ClassNotFoundException e)
             {
                 e.printStackTrace();
             }
             FullCalendarResourceItemsList initialEvents = IGuiceContext.get(actionClass)
-                                                                       .getInitialResources();
+                    .getInitialResources();
             if (initialEvents == null)
             {
                 return null;
