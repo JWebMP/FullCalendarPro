@@ -4,8 +4,12 @@ import com.guicedee.client.IGuiceContext;
 import com.guicedee.guicedservlets.websockets.options.IGuicedWebSocket;
 import com.jwebmp.core.base.ajax.AjaxCall;
 import com.jwebmp.core.base.ajax.AjaxResponse;
+import com.jwebmp.core.base.angular.client.annotations.constructors.NgConstructorBody;
+import com.jwebmp.core.base.angular.client.annotations.functions.NgAfterViewInit;
 import com.jwebmp.core.base.angular.client.annotations.functions.NgOnDestroy;
 import com.jwebmp.core.base.angular.client.annotations.references.NgImportReference;
+import com.jwebmp.core.base.angular.client.annotations.structures.NgField;
+import com.jwebmp.core.base.angular.client.annotations.structures.NgMethod;
 import com.jwebmp.core.base.angular.implementations.WebSocketAbstractCallReceiver;
 import com.jwebmp.plugins.fullcalendar.FullCalendar;
 import com.jwebmp.plugins.fullcalendar.options.resources.FullCalendarResourceItemsList;
@@ -21,6 +25,44 @@ import java.util.List;
 @NgImportReference(value = "!resourceTimelinePlugin", reference = "@fullcalendar/resource-timeline")
 @NgImportReference(value = "!adaptivePlugin", reference = "@fullcalendar/adaptive")
 
+@NgField("private handlerResourcesId : string;")
+@NgConstructorBody("this.handlerResourcesId = this.generateHandlerId();")
+
+@NgConstructorBody("""
+        this.subscriptionResources = this.eventBusService.listen(this.listenerName + 'Resources',this.handlerResourcesId)
+                       .subscribe((message: any) => {
+                       debugger
+                       this.calendarApi?.addResource(message);
+                        });
+        """)
+
+@NgMethod("""
+        \tinitializeResources() {
+                  // General listener
+                  const resourcesObserver = {
+                      next: (data: any) => this.handleResourceEvents(data),
+                      error: (err: any) =>
+                          console.error(`Error in general listener:`, err),
+                      complete: () =>
+                          console.log('General listener completed'),
+                  };
+                  this.subscriptionResources = this.eventBusService
+                      .listen(this.listenerName, this.generateHandlerId())
+                      .subscribe(resourcesObserver);
+              }
+        """)
+
+@NgMethod("""
+        \thandleResourceEvents(data : any)
+              {
+                  this.calendarApi?.addResource(data);
+              }
+        """)
+
+@NgAfterViewInit("""
+        \tthis.initializeResources();
+        """)
+@NgOnDestroy("this.subscriptionResources?.unsubscribe();")
 public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends FullCalendar<J>
 {
 
@@ -38,56 +80,19 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     public abstract FullCalendarResourceItemsList getInitialResources();
 
     @Override
-    public List<String> constructorBody()
-    {
-        List<String> out = super.constructorBody();
-        out.add("this.subscriptionResources = this.eventBusService.listen(this.listenerName + 'Resources').subscribe((message: any) => {\n" +
-                "          //  alert('bla - --- ' + JSON.stringify(message));\n" +
-                "            let workabe = false;\n" +
-                "           if(message) " +
-                "           if (Array.isArray(message)) {\n" +
-                "                workabe = true;\n" +
-                "            } else {\n" +
-                "                if (message.out && message.out[0]) {\n" +
-                "                    message = message.out[0];\n" +
-                "                    workabe = true;\n" +
-                "                }\n" +
-                "            }\n" +
-                "\n" +
-                "            if(workabe)\n" +
-                "            {\n" +
-                "                try {\n" +
-                //      "                    if (this.calendarApi)\n" +
-                //     "                        for (const rs of this.calendarApi.getResources()) {\n" +
-                //    "                            this.calendarApi.getResourceById(rs.id)?.remove();\n" +
-                //    "                        }\n" +
-                "                    for (const resource of message) {\n" +
-                "                      //  alert('adding resource -' + JSON.stringify(resource));\n" +
-                "                        this.calendarApi?.addResource(resource);\n" +
-                "                    }\n" +
-                //     "                    this.calendarApi?.updateSize();\n" +
-                "                } catch (e) {\n" +
-                "                    console.log(\"error in resources\", e);\n" +
-                "                }\n" +
-                "            }\n" +
-                "        });");
-        return out;
-    }
-
-    @Override
     public List<String> methods()
     {
         //List<String> methods = super.methods();
         List<String> methods = new ArrayList<>();
         methods.add("fetchData() {\n" +
                 "this.eventBusService.send(this.listenerName + 'Options', {\n" +
-                "            className: '" + getClass().getCanonicalName() + "',\n" +
+                "            className: this.clazzName,\n" +
                 "            listenerName: this.listenerName + 'Options'\n" +
                 "        }, this.listenerName + 'Options');" +
                 "" +
                 "" +
                 "        this.eventBusService.send(this.listenerName + 'Resources', {\n" +
-                "            className: '" + getClass().getCanonicalName() + "',\n" +
+                "            className: this.clazzName,\n" +
                 "            listenerName: this.listenerName + 'Resources'\n" +
                 "        }, this.listenerName + 'Resources');\n" +
 
@@ -95,7 +100,7 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
                 "" +
                 "                 //   alert('fetching evnts');\n" +
                 "                    this.eventBusService.send(this.listenerName, {\n" +
-                "                        className: '" + getClass().getCanonicalName() + "',\n" +
+                "                        className: this.clazzName,\n" +
                 "                        listenerName: this.listenerName\n" +
                 "                    }, this.listenerName);\n" +
                 "    }"
