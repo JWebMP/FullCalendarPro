@@ -28,34 +28,32 @@ import java.util.List;
 @NgField("private handlerResourcesId : string;")
 @NgConstructorBody("this.handlerResourcesId = this.generateHandlerId();")
 
-@NgConstructorBody("""
-        this.subscriptionResources = this.eventBusService.listen(this.listenerName + 'Resources',this.handlerResourcesId)
-                       .subscribe((message: any) => {
-                       debugger
-                       this.calendarApi?.addResource(message);
-                        });
-        """)
-
 @NgMethod("""
         \tinitializeResources() {
                   // General listener
                   const resourcesObserver = {
                       next: (data: any) => this.handleResourceEvents(data),
                       error: (err: any) =>
-                          console.error(`Error in general listener:`, err),
+                          console.error(`Error in resources listener:`, err),
                       complete: () =>
-                          console.log('General listener completed'),
+                          console.log('Resources listener completed'),
                   };
                   this.subscriptionResources = this.eventBusService
-                      .listen(this.listenerName, this.generateHandlerId())
+                      .listen(this.listenerName + 'Resources', this.handlerResourcesId)
                       .subscribe(resourcesObserver);
               }
         """)
 
 @NgMethod("""
-        \thandleResourceEvents(data : any)
-              {
-                  this.calendarApi?.addResource(data);
+        \thandleResourceEvents(data: any) {
+                  if (typeof data === 'string') {
+                      const d = JSON.parse(data);
+                      if (Array.isArray(d)) {
+                          this.calendarOptions.resources = d;
+                      }
+                  } else {
+                      this.calendarOptions.resources = data;
+                  }
               }
         """)
 
