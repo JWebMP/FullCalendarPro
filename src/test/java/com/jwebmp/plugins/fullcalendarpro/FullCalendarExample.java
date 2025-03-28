@@ -28,16 +28,16 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
     public void testAppSearch() throws IOException
     {
         GuiceContext.instance()
-                    .inject();
+                .inject();
         for (INgApp<?> app : JWebMPTypeScriptCompiler.getAllApps())
         {
-            JWebMPTypeScriptCompiler compiler = new JWebMPTypeScriptCompiler(app);
-
-            System.out.println("Generating @NgApp (" + getTsFilename(app.getClass()) + ") " +
-                                       "in folder " + IComponent.getClassDirectory(app.getClass()));
+            System.out.println("Test Generating @NgApp (" + getTsFilename(app.getClass()) + ") " +
+                    "in folder " + IComponent.getClassDirectory(app.getClass()));
             System.out.println("================");
             //	compiler.renderAppTS(app);
             System.out.println("================");
+
+            JWebMPTypeScriptCompiler compiler = new JWebMPTypeScriptCompiler(app);
         }
     }
 }
