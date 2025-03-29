@@ -10,6 +10,7 @@ import com.jwebmp.core.base.html.DivSimple;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static com.jwebmp.core.base.angular.client.services.interfaces.AnnotationUtils.getTsFilename;
 
@@ -25,7 +26,7 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
     }
 
     @Test
-    public void testAppSearch() throws IOException
+    public void testAppSearch() throws IOException, InterruptedException
     {
         GuiceContext.instance()
                 .inject();
@@ -39,5 +40,6 @@ public class FullCalendarExample extends DivSimple<FullCalendarExample>
 
             JWebMPTypeScriptCompiler compiler = new JWebMPTypeScriptCompiler(app);
         }
+        TimeUnit.SECONDS.sleep(2L);
     }
 }

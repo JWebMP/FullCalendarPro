@@ -29,31 +29,31 @@ import com.jwebmp.core.services.IPageConfigurator;
  * file://
  */
 @PluginInformation(pluginName = "Full Calendar",
-                   pluginUniqueName = "full-calendar-pro",
-                   pluginDescription = "Full Calendar Pro is the purchased library from the free, open-source project that enables you to design full calendar-like features and functions that is fully interactive, ajax controlled and mobile friendly. ",
-                   pluginVersion = "5.11.0",
-                   pluginDependancyUniqueIDs = "jquery,moment",
-                   pluginCategories = "jquery, calendar, schedular, event planner, events, ui, web",
-                   pluginSubtitle = "Display a full-size drag-n-drop event calendar, leveraging jQuery. ",
-                   pluginGitUrl = "https://github.com/GedMarc/JWebMP-FullCalendarPlugin",
-                   pluginSourceUrl = "https://github.com/fullcalendar",
-                   pluginWikiUrl = "https://github.com/GedMarc/JWebMP-FullCalendarPlugin/wiki",
-                   pluginOriginalHomepage = "https://fullcalendar.io/",
-                   pluginSourceDonateUrl = "https://fullcalendar.io/donate/",
-                   pluginDownloadUrl = "https://mvnrepository.com/artifact/com.jwebmp.plugins.jquery/jwebmp-full-calendar",
-                   pluginIconUrl = "",
-                   pluginIconImageUrl = "",
-                   pluginLastUpdatedDate = "2020/12/16",
-                   pluginGroupId = "com.jwebmp.plugins",
-                   pluginArtifactId = "full-calendar-pro",
-                   pluginModuleName = "com.jwebmp.plugins.fullcalendarpro",
-                   pluginStatus = PluginStatus.Released
+        pluginUniqueName = "full-calendar-pro",
+        pluginDescription = "Full Calendar Pro is the purchased library from the free, open-source project that enables you to design full calendar-like features and functions that is fully interactive, ajax controlled and mobile friendly. ",
+        pluginVersion = "6.1.15",
+        pluginDependancyUniqueIDs = "jquery,moment",
+        pluginCategories = "jquery, calendar, schedular, event planner, events, ui, web",
+        pluginSubtitle = "Display a full-size drag-n-drop event calendar, leveraging jQuery. ",
+        pluginGitUrl = "https://github.com/GedMarc/JWebMP-FullCalendarPlugin",
+        pluginSourceUrl = "https://github.com/fullcalendar",
+        pluginWikiUrl = "https://github.com/GedMarc/JWebMP-FullCalendarPlugin/wiki",
+        pluginOriginalHomepage = "https://fullcalendar.io/",
+        pluginSourceDonateUrl = "https://fullcalendar.io/donate/",
+        pluginDownloadUrl = "https://mvnrepository.com/artifact/com.jwebmp.plugins.jquery/jwebmp-full-calendar",
+        pluginIconUrl = "",
+        pluginIconImageUrl = "",
+        pluginLastUpdatedDate = "2020/12/16",
+        pluginGroupId = "com.jwebmp.plugins",
+        pluginArtifactId = "full-calendar-pro",
+        pluginModuleName = "com.jwebmp.plugins.fullcalendarpro",
+        pluginStatus = PluginStatus.Released
 )
 
-@TsDependency(value = "@fullcalendar/resource-timegrid", version = "^6.1.13")
-@TsDependency(value = "@fullcalendar/resource-timeline", version = "^6.1.13")
-@TsDependency(value = "@fullcalendar/adaptive", version = "^6.1.13")
-@TsDependency(value = "@fullcalendar/resource-daygrid", version = "^6.1.13")
+@TsDependency(value = "@fullcalendar/resource-timegrid", version = "^6.1.15")
+@TsDependency(value = "@fullcalendar/resource-timeline", version = "^6.1.15")
+@TsDependency(value = "@fullcalendar/adaptive", version = "^6.1.15")
+@TsDependency(value = "@fullcalendar/resource-daygrid", version = "^6.1.15")
 
 /*
 

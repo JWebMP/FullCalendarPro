@@ -20,10 +20,10 @@ import java.util.List;
 @NgOnDestroy("this.subscriptionResources?.unsubscribe();")
 
 
-@NgImportReference(value = "!resourceDayGridPlugin", reference = "@fullcalendar/resource-daygrid")
-@NgImportReference(value = "!resourceTimeGridPlugin", reference = "@fullcalendar/resource-timegrid")
-@NgImportReference(value = "!resourceTimelinePlugin", reference = "@fullcalendar/resource-timeline")
-@NgImportReference(value = "!adaptivePlugin", reference = "@fullcalendar/adaptive")
+@NgImportReference(value = "resourceDayGridPlugin", reference = "@fullcalendar/resource-daygrid", wrapValueInBraces = false)
+@NgImportReference(value = "resourceTimeGridPlugin", reference = "@fullcalendar/resource-timegrid", wrapValueInBraces = false)
+@NgImportReference(value = "resourceTimelinePlugin", reference = "@fullcalendar/resource-timeline", wrapValueInBraces = false)
+@NgImportReference(value = "adaptivePlugin", reference = "@fullcalendar/adaptive", wrapValueInBraces = false)
 
 @NgField("private handlerResourcesId : string;")
 @NgConstructorBody("this.handlerResourcesId = this.generateHandlerId();")
@@ -174,7 +174,8 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
                 listenerName = call.getUnknownFields()
                         .get("listenerName")
                         .toString();
-            } catch (ClassNotFoundException e)
+            }
+            catch (ClassNotFoundException e)
             {
                 e.printStackTrace();
             }
