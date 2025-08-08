@@ -18,3 +18,4 @@ persistence.xml
 /.idea/
 /flatter.pom
 /webroot/
+/logs/
