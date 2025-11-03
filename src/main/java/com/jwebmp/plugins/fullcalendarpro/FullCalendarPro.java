@@ -12,6 +12,7 @@ import com.jwebmp.core.base.angular.client.annotations.structures.NgField;
 import com.jwebmp.core.base.angular.client.annotations.structures.NgMethod;
 import com.jwebmp.core.base.angular.implementations.WebSocketAbstractCallReceiver;
 import com.jwebmp.plugins.fullcalendar.FullCalendar;
+import com.jwebmp.plugins.fullcalendar.NgTemplateElement;
 import com.jwebmp.plugins.fullcalendar.options.resources.FullCalendarResourceItemsList;
 
 import java.util.ArrayList;
@@ -61,6 +62,27 @@ import java.util.List;
         \tthis.initializeResources();
         """)
 @NgOnDestroy("this.subscriptionResources?.unsubscribe();")
+@NgImportReference(value = "TemplateRef", reference = "@angular/core")
+@NgField("@ViewChild('resourceAreaColumnHeader') resourceAreaColumnHeaderTpl?: TemplateRef<any>;")
+@NgField("@ViewChild('resourceAreaColumnCell') resourceAreaColumnCellTpl?: TemplateRef<any>;")
+@NgMethod("""
+        private applyResourceAreaTemplates(): void {
+            if (this.resourceAreaColumnHeaderTpl && this.resourceAreaColumnCellTpl) {
+                const cols: any[] = [{
+                    field: 'title',
+                    headerContent: this.resourceAreaColumnHeaderTpl,
+                    cellContent: this.resourceAreaColumnCellTpl
+                }];
+                this.calendarOptions = {
+                    ...this.calendarOptions,
+                    resourceAreaColumns: cols
+                };
+            }
+        }
+        """)
+@NgAfterViewInit("""
+        this.applyResourceAreaTemplates();
+        """)
 public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends FullCalendar<J>
 {
 
@@ -76,6 +98,31 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     }
 
     public abstract FullCalendarResourceItemsList getInitialResources();
+
+    // Template flags for Pro (opt-in). Default false so no ng-template markup unless enabled explicitly.
+    private boolean enableResourceLabelTemplate;
+    private boolean enableResourceAreaHeaderTemplate;
+    private boolean enableResourceAreaColumnTemplates;
+
+    public boolean isEnableResourceLabelTemplate() { return enableResourceLabelTemplate; }
+    public boolean isEnableResourceAreaHeaderTemplate() { return enableResourceAreaHeaderTemplate; }
+    public boolean isEnableResourceAreaColumnTemplates() { return enableResourceAreaColumnTemplates; }
+
+    @SuppressWarnings("unchecked")
+    public J setEnableResourceLabelTemplate(boolean enable) { this.enableResourceLabelTemplate = enable; return (J) this; }
+    @SuppressWarnings("unchecked")
+    public J setEnableResourceAreaHeaderTemplate(boolean enable) { this.enableResourceAreaHeaderTemplate = enable; return (J) this; }
+    @SuppressWarnings("unchecked")
+    public J setEnableResourceAreaColumnTemplates(boolean enable) { this.enableResourceAreaColumnTemplates = enable; return (J) this; }
+
+    /** Convenience to enable all Pro templates (restores previous default behavior). */
+    @SuppressWarnings("unchecked")
+    public J enableAllProTemplates() {
+        this.enableResourceLabelTemplate = true;
+        this.enableResourceAreaHeaderTemplate = true;
+        this.enableResourceAreaColumnTemplates = true;
+        return (J) this;
+    }
 
     @Override
     public List<String> methods()
@@ -133,6 +180,41 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
         List<String> fields = super.fields();
         fields.add(" private subscriptionResources? : Subscription;\n");
         return fields;
+    }
+
+    @Override
+    protected void init()
+    {
+        // Add Pro-specific Angular template slots
+        try {
+            if (enableResourceLabelTemplate) {
+                NgTemplateElement resourceLabelContent = new NgTemplateElement("resourceLabelContent").withLetArg();
+                resourceLabelContent.add("<span class=\"fc-tpl fc-resource-label\">{{ arg?.resource?.title || arg?.resource?.id }}</span>");
+                super.add(resourceLabelContent);
+            }
+
+            if (enableResourceAreaHeaderTemplate) {
+                NgTemplateElement resourceAreaHeaderContent = new NgTemplateElement("resourceAreaHeaderContent").withLetArg();
+                resourceAreaHeaderContent.add("<span class=\"fc-tpl fc-resource-area-header\">Resources</span>");
+                super.add(resourceAreaHeaderContent);
+            }
+
+            if (enableResourceAreaColumnTemplates) {
+                // resource area column templates (to be bound via @ViewChild and options.resourceAreaColumns)
+                NgTemplateElement resourceAreaColumnHeader = new NgTemplateElement("resourceAreaColumnHeader").withLetArg();
+                resourceAreaColumnHeader.add("<strong class=\"fc-tpl fc-resource-col-header\">{{ arg?.field || 'Col' }}</strong>");
+                super.add(resourceAreaColumnHeader);
+
+                NgTemplateElement resourceAreaColumnCell = new NgTemplateElement("resourceAreaColumnCell").withLetArg();
+                resourceAreaColumnCell.add("<span class=\"fc-tpl fc-resource-col-cell\">{{ arg?.resource?.extendedProps?.[arg?.field] || arg?.text }}</span>");
+                super.add(resourceAreaColumnCell);
+            }
+        }
+        catch (Exception ignored) {
+            // generation-only; ignore
+        }
+
+        super.init();
     }
 
     protected void registerWebSocketListeners()
