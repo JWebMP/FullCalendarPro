@@ -248,27 +248,29 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
         }
 
         @Override
-        public AjaxResponse<?> action(AjaxCall<?> call, AjaxResponse<?> response)
+        public io.smallrye.mutiny.Uni<AjaxResponse<?>> action(AjaxCall<?> call, AjaxResponse<?> response)
         {
-            try
-            {
-                actionClass = (Class<? extends FullCalendarPro>) Class.forName(call.getClassName());
-                listenerName = call.getUnknownFields()
-                        .get("listenerName")
-                        .toString();
-            }
-            catch (ClassNotFoundException e)
-            {
-                e.printStackTrace();
-            }
-            FullCalendarResourceItemsList initialEvents = IGuiceContext.get(actionClass)
-                    .getInitialResources();
-            if (initialEvents == null)
-            {
-                return null;
-            }
-            response.addDataResponse(listenerName, initialEvents);
-            return response;
+            return io.smallrye.mutiny.Uni.createFrom().item(() -> {
+                try
+                {
+                    actionClass = (Class<? extends FullCalendarPro>) Class.forName(call.getClassName());
+                    listenerName = call.getUnknownFields()
+                            .get("listenerName")
+                            .toString();
+                }
+                catch (ClassNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
+                FullCalendarResourceItemsList initialEvents = IGuiceContext.get(actionClass)
+                        .getInitialResources();
+                if (initialEvents == null)
+                {
+                    return null;
+                }
+                response.addDataResponse(listenerName, initialEvents);
+                return response;
+            });
         }
     }
 }
