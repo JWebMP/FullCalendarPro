@@ -111,21 +111,21 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     public boolean isEnableResourceAreaColumnTemplates() {return enableResourceAreaColumnTemplates;}
 
     @SuppressWarnings("unchecked")
-    public J setEnableResourceLabelTemplate(boolean enable)
+    public @org.jspecify.annotations.NonNull J setEnableResourceLabelTemplate(boolean enable)
     {
         this.enableResourceLabelTemplate = enable;
         return (J) this;
     }
 
     @SuppressWarnings("unchecked")
-    public J setEnableResourceAreaHeaderTemplate(boolean enable)
+    public @org.jspecify.annotations.NonNull J setEnableResourceAreaHeaderTemplate(boolean enable)
     {
         this.enableResourceAreaHeaderTemplate = enable;
         return (J) this;
     }
 
     @SuppressWarnings("unchecked")
-    public J setEnableResourceAreaColumnTemplates(boolean enable)
+    public @org.jspecify.annotations.NonNull J setEnableResourceAreaColumnTemplates(boolean enable)
     {
         this.enableResourceAreaColumnTemplates = enable;
         return (J) this;
