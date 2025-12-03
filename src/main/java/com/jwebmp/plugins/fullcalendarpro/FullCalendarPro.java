@@ -1,7 +1,7 @@
 package com.jwebmp.plugins.fullcalendarpro;
 
 import com.guicedee.client.IGuiceContext;
-import com.guicedee.guicedservlets.websockets.options.IGuicedWebSocket;
+import com.guicedee.client.services.websocket.IGuicedWebSocket;
 import com.jwebmp.core.base.ajax.AjaxCall;
 import com.jwebmp.core.base.ajax.AjaxResponse;
 import com.jwebmp.core.base.angular.client.annotations.constructors.NgConstructorBody;
