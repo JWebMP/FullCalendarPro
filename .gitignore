@@ -19,3 +19,4 @@ persistence.xml
 /flatter.pom
 /webroot/
 /logs/
+/.vscode/
