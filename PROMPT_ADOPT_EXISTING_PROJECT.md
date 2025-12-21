@@ -171,13 +171,14 @@ Before proceeding with any other steps, register required MCP servers with your 
     - [x] Client
     - [x] TypeScript
     - [x] Angular
-    - [ ] WebAwesome
-    - [ ] WebAwesome Pro
-    - [ ] AgGrid
-    - [ ] AgGridEnterprise
-    - [ ] AgCharts
-    - [ ] AgCharts Enterprise
-    - [x] FullCalendar
+  - [ ] WebAwesome
+  - [ ] WebAwesome Pro
+  - [ ] AgGrid
+  - [ ] AgGridEnterprise
+  - [ ] AgCharts
+  - [ ] AgCharts Enterprise
+  - [x] FullCalendar
+  - [x] FullCalendar Pro
   - Frontend (Reactive):
     - Angular (choose exactly one)
       - [ ] Angular 17
