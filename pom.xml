@@ -37,7 +37,7 @@
         </dependency>
         <dependency>
             <groupId>com.jwebmp.core</groupId>
-            <artifactId>jwebmp-testlib</artifactId>
+            <artifactId>testlib</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
