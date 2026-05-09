@@ -83,17 +83,14 @@ import java.util.List;
 @NgAfterViewInit("""
         this.applyResourceAreaTemplates();
         """)
-public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends FullCalendar<J>
-{
+public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends FullCalendar<J> {
 
-    protected FullCalendarPro()
-    {
+    protected FullCalendarPro() {
         super();
     }
 
 
-    public FullCalendarPro(String id)
-    {
+    public FullCalendarPro(String id) {
         super(id);
     }
 
@@ -104,29 +101,32 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     private boolean enableResourceAreaHeaderTemplate;
     private boolean enableResourceAreaColumnTemplates;
 
-    public boolean isEnableResourceLabelTemplate() {return enableResourceLabelTemplate;}
+    public boolean isEnableResourceLabelTemplate() {
+        return enableResourceLabelTemplate;
+    }
 
-    public boolean isEnableResourceAreaHeaderTemplate() {return enableResourceAreaHeaderTemplate;}
+    public boolean isEnableResourceAreaHeaderTemplate() {
+        return enableResourceAreaHeaderTemplate;
+    }
 
-    public boolean isEnableResourceAreaColumnTemplates() {return enableResourceAreaColumnTemplates;}
+    public boolean isEnableResourceAreaColumnTemplates() {
+        return enableResourceAreaColumnTemplates;
+    }
 
     @SuppressWarnings("unchecked")
-    public @org.jspecify.annotations.NonNull J setEnableResourceLabelTemplate(boolean enable)
-    {
+    public @org.jspecify.annotations.NonNull J setEnableResourceLabelTemplate(boolean enable) {
         this.enableResourceLabelTemplate = enable;
         return (J) this;
     }
 
     @SuppressWarnings("unchecked")
-    public @org.jspecify.annotations.NonNull J setEnableResourceAreaHeaderTemplate(boolean enable)
-    {
+    public @org.jspecify.annotations.NonNull J setEnableResourceAreaHeaderTemplate(boolean enable) {
         this.enableResourceAreaHeaderTemplate = enable;
         return (J) this;
     }
 
     @SuppressWarnings("unchecked")
-    public @org.jspecify.annotations.NonNull J setEnableResourceAreaColumnTemplates(boolean enable)
-    {
+    public @org.jspecify.annotations.NonNull J setEnableResourceAreaColumnTemplates(boolean enable) {
         this.enableResourceAreaColumnTemplates = enable;
         return (J) this;
     }
@@ -135,8 +135,7 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
      * Convenience to enable all Pro templates (restores previous default behavior).
      */
     @SuppressWarnings("unchecked")
-    public J enableAllProTemplates()
-    {
+    public J enableAllProTemplates() {
         this.enableResourceLabelTemplate = true;
         this.enableResourceAreaHeaderTemplate = true;
         this.enableResourceAreaColumnTemplates = true;
@@ -144,8 +143,7 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     }
 
     @Override
-    public List<String> methods()
-    {
+    public List<String> methods() {
         //List<String> methods = super.methods();
         List<String> methods = new ArrayList<>();
         methods.add("fetchData() {\n" +
@@ -194,35 +192,29 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
     }
 
     @Override
-    public List<String> fields()
-    {
+    public List<String> fields() {
         List<String> fields = super.fields();
         fields.add(" private subscriptionResources? : Subscription;\n");
         return fields;
     }
 
     @Override
-    protected void init()
-    {
+    protected void init() {
         // Add Pro-specific Angular template slots
-        try
-        {
-            if (enableResourceLabelTemplate)
-            {
+        try {
+            if (enableResourceLabelTemplate) {
                 NgTemplateElement resourceLabelContent = new NgTemplateElement("resourceLabelContent").withLetArg();
                 resourceLabelContent.add("<span class=\"fc-tpl fc-resource-label\">{{ arg?.resource?.title || arg?.resource?.id }}</span>");
                 super.add(resourceLabelContent);
             }
 
-            if (enableResourceAreaHeaderTemplate)
-            {
+            if (enableResourceAreaHeaderTemplate) {
                 NgTemplateElement resourceAreaHeaderContent = new NgTemplateElement("resourceAreaHeaderContent").withLetArg();
                 resourceAreaHeaderContent.add("<span class=\"fc-tpl fc-resource-area-header\">Resources</span>");
                 super.add(resourceAreaHeaderContent);
             }
 
-            if (enableResourceAreaColumnTemplates)
-            {
+            if (enableResourceAreaColumnTemplates) {
                 // resource area column templates (to be bound via @ViewChild and options.resourceAreaColumns)
                 NgTemplateElement resourceAreaColumnHeader = new NgTemplateElement("resourceAreaColumnHeader").withLetArg();
                 resourceAreaColumnHeader.add("<strong class=\"fc-tpl fc-resource-col-header\">{{ arg?.field || 'Col' }}</strong>");
@@ -232,70 +224,57 @@ public abstract class FullCalendarPro<J extends FullCalendarPro<J>> extends Full
                 resourceAreaColumnCell.add("<span class=\"fc-tpl fc-resource-col-cell\">{{ arg?.resource?.extendedProps?.[arg?.field] || arg?.text }}</span>");
                 super.add(resourceAreaColumnCell);
             }
-        }
-        catch (Exception ignored)
-        {
+        } catch (Exception ignored) {
             // generation-only; ignore
         }
 
         super.init();
     }
 
-    protected void registerWebSocketListeners()
-    {
+    protected void registerWebSocketListeners() {
         super.registerWebSocketListeners();
-        if (!IGuicedWebSocket.isWebSocketReceiverRegistered(getListenerNameResources()))
-        {
+        if (!IGuicedWebSocket.isWebSocketReceiverRegistered(getListenerNameResources())) {
             IGuicedWebSocket.addWebSocketMessageReceiver(new InitialResourceEventsReceiver(getListenerNameResources(), getClass()));
         }
     }
 
-    private static class InitialResourceEventsReceiver extends WebSocketAbstractCallReceiver<InitialResourceEventsReceiver>
-    {
+    private static class InitialResourceEventsReceiver extends WebSocketAbstractCallReceiver<InitialResourceEventsReceiver> {
         private String listenerName;
         private Class<? extends FullCalendarPro> actionClass;
 
-        public InitialResourceEventsReceiver()
-        {
+        public InitialResourceEventsReceiver() {
         }
 
-        public InitialResourceEventsReceiver(String listenerName, Class<? extends FullCalendarPro> actionClass)
-        {
+        public InitialResourceEventsReceiver(String listenerName, Class<? extends FullCalendarPro> actionClass) {
             this.listenerName = listenerName;
             this.actionClass = actionClass;
         }
 
         @Override
-        public String getMessageDirector()
-        {
+        public String getMessageDirector() {
             return listenerName;
         }
 
         @Override
-        public io.smallrye.mutiny.Uni<AjaxResponse<?>> action(AjaxCall<?> call, AjaxResponse<?> response)
-        {
+        public io.smallrye.mutiny.Uni<AjaxResponse<?>> action(AjaxCall<?> call, AjaxResponse<?> response) {
             return io.smallrye.mutiny.Uni.createFrom()
-                                         .item(() -> {
-                                             try
-                                             {
-                                                 actionClass = (Class<? extends FullCalendarPro>) Class.forName(call.getClassName());
-                                                 listenerName = call.getUnknownFields()
-                                                                    .get("listenerName")
-                                                                    .toString();
-                                             }
-                                             catch (ClassNotFoundException e)
-                                             {
-                                                 e.printStackTrace();
-                                             }
-                                             FullCalendarResourceItemsList initialEvents = IGuiceContext.get(actionClass)
-                                                                                                        .getInitialResources();
-                                             if (initialEvents == null)
-                                             {
-                                                 return null;
-                                             }
-                                             response.addDataResponse(listenerName, initialEvents);
-                                             return response;
-                                         });
+                    .item(() -> {
+                        try {
+                            actionClass = (Class<? extends FullCalendarPro>) Class.forName(call.getClassName());
+                            listenerName = call.getUnknownFields()
+                                    .get("listenerName")
+                                    .toString();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        FullCalendarResourceItemsList initialEvents = IGuiceContext.get(actionClass)
+                                .getInitialResources();
+                        if (initialEvents == null) {
+                            return null;
+                        }
+                        response.addDataResponse(listenerName, initialEvents);
+                        return response;
+                    });
         }
     }
 }
